@@ -42,7 +42,15 @@ public class Armour extends Equippable {
      */
     public Armour(Armour src)
     {
-        // Complete this function.
+        super();
+
+        super.name          = src.name;
+        super.material      = src.material;
+        super.durability    = src.durability;
+        super.modifier      = src.modifier;
+        super.modifierLevel = src.modifierLevel;
+        super.element       = src.element;
+        this.defense = src.defense;
     }
 
     /**
@@ -72,8 +80,12 @@ public class Armour extends Equippable {
     public void read(Scanner snr)
     {
         super.name    = snr.next();
-
-        // Complete this function.
+        super.material   = snr.next();
+        super.durability = snr.nextInt();
+        this.defense     = snr.nextInt();
+        super.modifier   = snr.next();
+        super.modifierLevel = snr.nextInt();
+        super.element    = snr.next();
     }
 
     /**
@@ -82,7 +94,7 @@ public class Armour extends Equippable {
     @Override
     public Item clone()
     {
-        Armour cpy = new Armour();
+        Armour cpy = new Armour(this);
 
         // Complete this function.
 
@@ -104,9 +116,10 @@ public class Armour extends Equippable {
 
         Armour rhsItem = (Armour) rhs;
 
-        // Complete this function.
-        // Remove the placeholder return
-        return false;
+        return this.name.equals(rhsItem.name)
+        && this.material.equals(rhsItem.material)
+        && this.modifier.equals(rhsItem.modifier)
+        && this.element.equals(rhsItem.element);
     }
 
     /**
@@ -116,9 +129,10 @@ public class Armour extends Equippable {
     @Override
     public int hashCode()
     {
-        // Complete this function.
-        // Remove the placeholder return
-        return -1;
+        return this.name.hashCode()
+         + this.material.hashCode()
+         + this.modifier.hashCode()
+         + this.element.hashCode();
     }
 
     /**
@@ -130,9 +144,14 @@ public class Armour extends Equippable {
 
         // Complete this function... treat the return as a hint.
         return String.join(
-            System.lineSeparator(),
-            String.format("  Nme: %s", super.getName()),
-            ""
+        System.lineSeparator(),
+        String.format("  Nme: %s", super.getName()),
+        String.format("  Dur: %d", super.durability),
+        String.format("  Def: %d", this.defense),
+        String.format("  Mtl: %s", super.material),
+        String.format("  Mdr: %s (Lvl %d)", super.modifier, super.modifierLevel),
+        String.format("  Emt: %s", super.element),
+        ""
         );
     }
 }
